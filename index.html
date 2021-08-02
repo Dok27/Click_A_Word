@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="heading">Старт</h1>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      let leftOffset = 0;
+      let topOffset = 0;
+      let counter = 30;
+      let moveHeading = function () {
+        $("#heading").offset({
+          left: leftOffset,
+          top: topOffset,
+        });
+        if (leftOffset < 200 && topOffset == 0) {
+          leftOffset++;
+        }
+        if (topOffset < 200 && leftOffset == 200) {
+          topOffset++;
+        }
+        if (leftOffset > 0 && topOffset == 200) {
+          leftOffset--;
+        }
+        if (topOffset > 0 && leftOffset == 0) {
+          topOffset--;
+        }
+      };
+      let interval = setInterval(moveHeading, counter);
+      let clickHeading = function (event) {
+        clearInterval(interval);
+        counter--;
+        $("#heading").css("font-size", counter);
+        $("#heading").text(" Осталось: " + counter);
+        interval = setInterval(moveHeading, counter);
+        if (counter < 1) {
+          alert("Конец");
+          clearInterval(interval);
+        }
+      };
+      $("#heading").click(clickHeading);
+    </script>
+  </body>
+</html>
